@@ -12,14 +12,16 @@ def item_list(request):
 @login_required
 def report_item(request):
     if request.method == 'POST':
-        title = request.POST['title']
-        description = request.POST['description']
-        status = request.POST['status']
+        title = request.POST.get('title')
+        description = request.POST.get('description')
+        status = request.POST.get('status')
+        image = request.FILES.get('image')
 
         Item.objects.create(
             title=title,
             description=description,
             status=status,
+            image=image,
             reported_by=request.user
         )
 
